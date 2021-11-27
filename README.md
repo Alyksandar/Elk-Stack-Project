@@ -31,7 +31,7 @@ Load balancing ensures that the application will be highly efficient, in additio
   - Load balancing lets you evenly distribute network traffic to prevent failure caused by overloading a particular resource. This strategy improves the performance and  availability of applications, websites, databases, and other computing resources. It also helps process user requests quickly and accurately.  
 
 - What is the advantage of a jump box?
-  - A Jump-Box is a hardened and monitored device that controls access to other internal devices, another advantage of a Jump-Box is the orgination point for launching Administrative Tasks.
+  - A jump box is a hardened and monitored device that controls access to other internal devices.
 
 Integrating an ELK server allows users to easily monitor the vulnerable VMs for changes to the filesystem and system resources.
 
@@ -83,7 +83,7 @@ The playbook implements the following tasks:
 
 The following screenshot displays the result of running `docker ps` after successfully configuring the ELK instance.
 
-![TODO: Update the path with the name of your screenshot of docker ps output](Images/docker_ps_output.png)
+![](Diagrams/docker-ps.png)
 
 ### Target Machines & Beats
 
@@ -107,13 +107,36 @@ This ELK server is configured to monitor the following machines:
 In order to use the playbook, you will need to have an Ansible control node already configured. Assuming you have such a control node provisioned: 
 
 SSH into the control node and follow the steps below:
-- Copy the playbook file to `/etc/ansible`.
-- Update the `/etc/ansible/hosts` file to include the Elk and Webservers private IP addresses.
-- Run the playbook, and navigate to Kibana (http://[Host IP]/app/kibana#/home) to check that the installation worked as expected.
 
-_TODO: Answer the following questions to fill in the blanks:_
-- _Which file is the playbook? Where do you copy it?_
-- _Which file do you update to make Ansible run the playbook on a specific machine? How do I specify which machine to install the ELK server on versus which to install Filebeat on?_
-- _Which URL do you navigate to in order to check that the ELK server is running?
+```
+$ cd /etc/ansible
+$ mkdir files
+```
+- Copy the playbook files to `/etc/ansible/files`.
 
-_As a **Bonus**, provide the specific commands the user will need to run to download the playbook, update the files, etc._
+You can do a git clone command, `git clone https://github.com/Alyksandar/Elk-Stack-Project.git` to clone the repository and download the playbooks.
+
+Move the Playbooks files into `/etc/ansible/files`.
+
+`$ cp /etc/ansible/Elk-Stack-Project/Ansible/* /etc/ansible/files `
+
+- Update the `/etc/ansible/hosts` file to include the Elk and Webservers private IP addresses. Editing the host file will make Ansilbe run the playbook on a specific machine, and specify which machine to install ELK server on versus which to install Filebeat and Metricbeat.
+
+```
+[webservers]
+10.0.0.10 ansible_python_interpreter=/usr/bin/python3
+10.0.0.9 ansible_python_interpreter=/usr/bin/python3
+
+[elk]
+10.1.0.4 ansible_python_interpreter=/usr/bin/python3
+```
+
+- Run the playbook, and navigate to Kibana (http://[Host IP]/app/kibana) to check that the installation worked as expected.
+
+```
+$ ansible-playbook install-elk.yml
+$ ansible-playbook install-filebeat.yml
+$ ansible-playbook install-metricbeat.yml
+```
+- Check that the ELK server is running, http://[Host IP]/app/kibana.
+
