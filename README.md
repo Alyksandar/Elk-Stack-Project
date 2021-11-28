@@ -36,10 +36,10 @@ Load balancing ensures that the application will be highly efficient, in additio
 Integrating an ELK server allows users to easily monitor the vulnerable VMs for changes to the filesystem and system resources.
 
 - Filebeat watch for?
-  - log files and filesystem changes.
+  - Log files and filesystem changes.
 
 - What does Metricbeat record?
-  - system-level CPU usage, memory, file system, disk IO, and network IO statistics.
+  - System-level CPU usage, memory, file system, disk IO, and network IO statistics.
 
 The configuration details of each machine may be found below.
 
